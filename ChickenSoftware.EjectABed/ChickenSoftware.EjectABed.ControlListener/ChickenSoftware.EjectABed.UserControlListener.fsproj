@@ -6,12 +6,12 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>953ce2fe-edac-41b6-8845-16b1e29b900e</ProjectGuid>
+    <ProjectGuid>8b0c79d4-bd54-49c3-a459-74cb8456a35c</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>BedListener</RootNamespace>
-    <AssemblyName>ChickenSoftware.EjectABed.BedListener</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
-    <Name>ChickenSoftware.EjectABed.BedListener</Name>
+    <RootNamespace>ChickenSoftware.EjectABed.ControlListener</RootNamespace>
+    <AssemblyName>ChickenSoftware.EjectABed.UserControlListener</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <Name>ChickenSoftware.EjectABed.UserControlListener</Name>
     <RoleType>Worker</RoleType>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -22,7 +22,8 @@
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <WarningLevel>3</WarningLevel>
-    <DocumentationFile>bin\Debug\BedListener.XML</DocumentationFile>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -31,14 +32,14 @@
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <WarningLevel>3</WarningLevel>
-    <DocumentationFile>bin\Release\BedListener.XML</DocumentationFile>
+    <DocumentationFile>bin\Release\ChickenSoftware.EjectABed.ControlListener.XML</DocumentationFile>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\FSharp\Microsoft.FSharp.Targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\FSharp\Microsoft.FSharp.Targets')" />
   <PropertyGroup>
     <AutoUnifyAssemblyReferences>false</AutoUnifyAssemblyReferences>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="BedListener.fs" />
+    <Compile Include="UserControlListener.fs" />
     <None Include="app.config" />
     <Content Include="packages.config" />
   </ItemGroup>

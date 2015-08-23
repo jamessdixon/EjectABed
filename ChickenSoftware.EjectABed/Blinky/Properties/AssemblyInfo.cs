@@ -8,12 +8,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Blinky")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Bed Control")]
+[assembly: AssemblyDescription("Designed for Rapberry Pi Controller of Eject A Bed")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Chicken Software")]
 [assembly: AssemblyProduct("Blinky")]
-[assembly: AssemblyCopyright("Copyright ©  2014")]
+[assembly: AssemblyCopyright("Copyright ©  2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

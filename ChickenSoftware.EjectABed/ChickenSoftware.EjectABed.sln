@@ -7,11 +7,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "libs", "libs", "{30616F1F-2
 EndProject
 Project("{CC5FD16D-436D-48AD-A40C-5A424C6E3E79}") = "ChickenSoftware.EjectABed.AzureServices", "ChickenSoftware.EjectABed.AzureServices\ChickenSoftware.EjectABed.AzureServices.ccproj", "{A2ED9A5D-C79F-47DF-9968-5C52AB192F76}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "ChickenSoftware.EjectABed.BedListener", "BedListener\ChickenSoftware.EjectABed.BedListener.fsproj", "{953CE2FE-EDAC-41B6-8845-16B1E29B900E}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "ChickenSoftware.EjectABed.BedControlListener", "BedListener\ChickenSoftware.EjectABed.BedControlListener.fsproj", "{953CE2FE-EDAC-41B6-8845-16B1E29B900E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blinky", "Blinky\Blinky.csproj", "{3662C7F2-04F8-4046-BF8E-EF1AC302DFE2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChickenSoftware.EjectABed.BedControl", "Blinky\ChickenSoftware.EjectABed.BedControl.csproj", "{3662C7F2-04F8-4046-BF8E-EF1AC302DFE2}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "ChickenSoftware.EjectABed.ControlListener", "ChickenSoftware.EjectABed.ControlListener\ChickenSoftware.EjectABed.ControlListener.fsproj", "{8B0C79D4-BD54-49C3-A459-74CB8456A35C}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "ChickenSoftware.EjectABed.UserControlListener", "ChickenSoftware.EjectABed.ControlListener\ChickenSoftware.EjectABed.UserControlListener.fsproj", "{8B0C79D4-BD54-49C3-A459-74CB8456A35C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

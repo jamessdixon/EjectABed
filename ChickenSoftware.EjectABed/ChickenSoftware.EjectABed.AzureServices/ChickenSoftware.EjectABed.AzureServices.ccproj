@@ -37,28 +37,27 @@
     <ServiceConfiguration Include="ServiceConfiguration.Cloud.cscfg" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="ChickenSoftware.EjectABed.BedListenerContent" />
-    <Folder Include="ChickenSoftware.EjectABed.ControlListenerContent\" />
+    <Folder Include="ChickenSoftware.EjectABed.BedControlListenerContent" />
+    <Folder Include="ChickenSoftware.EjectABed.UserControlListenerContent" />
   </ItemGroup>
   <ItemGroup>
-    <DiagnosticsConfiguration Include="ChickenSoftware.EjectABed.BedListenerContent\diagnostics.wadcfgx" />
-    <DiagnosticsConfiguration Include="ChickenSoftware.EjectABed.ControlListenerContent\diagnostics.wadcfgx" />
+    <DiagnosticsConfiguration Include="ChickenSoftware.EjectABed.BedControlListenerContent\diagnostics.wadcfgx" />
+    <DiagnosticsConfiguration Include="ChickenSoftware.EjectABed.UserControlListenerContent\diagnostics.wadcfgx" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BedListener\ChickenSoftware.EjectABed.BedListener.fsproj">
-      <Name>ChickenSoftware.EjectABed.BedListener</Name>
+    <ProjectReference Include="..\BedListener\ChickenSoftware.EjectABed.BedControlListener.fsproj">
+      <Name>ChickenSoftware.EjectABed.BedControlListener</Name>
       <Project>{953ce2fe-edac-41b6-8845-16b1e29b900e}</Project>
       <Private>True</Private>
       <RoleType>Worker</RoleType>
-      <RoleName>ChickenSoftware.EjectABed.BedListener</RoleName>
+      <RoleName>ChickenSoftware.EjectABed.BedControlListener</RoleName>
     </ProjectReference>
-    <ProjectReference Include="..\ChickenSoftware.EjectABed.ControlListener\ChickenSoftware.EjectABed.ControlListener.fsproj">
-      <Name>ChickenSoftware.EjectABed.ControlListener</Name>
+    <ProjectReference Include="..\ChickenSoftware.EjectABed.ControlListener\ChickenSoftware.EjectABed.UserControlListener.fsproj">
+      <Name>ChickenSoftware.EjectABed.UserControlListener</Name>
       <Project>{8b0c79d4-bd54-49c3-a459-74cb8456a35c}</Project>
       <Private>True</Private>
       <RoleType>Worker</RoleType>
-      <RoleName>ChickenSoftware.EjectABed.ControlListener</RoleName>
-      <UpdateDiagnosticsConnectionStringOnPublish>True</UpdateDiagnosticsConnectionStringOnPublish>
+      <RoleName>ChickenSoftware.EjectABed.UserControlListener</RoleName>
     </ProjectReference>
   </ItemGroup>
   <!-- Import the target files for this project template -->
