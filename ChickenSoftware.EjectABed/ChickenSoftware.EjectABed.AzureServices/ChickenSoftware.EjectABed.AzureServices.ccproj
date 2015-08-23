@@ -37,20 +37,19 @@
     <ServiceConfiguration Include="ServiceConfiguration.Cloud.cscfg" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BedListener\BedListener.fsproj">
-      <Name>BedListener</Name>
+    <Folder Include="ChickenSoftware.EjectABed.BedListenerContent" />
+  </ItemGroup>
+  <ItemGroup>
+    <DiagnosticsConfiguration Include="ChickenSoftware.EjectABed.BedListenerContent\diagnostics.wadcfgx" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BedListener\ChickenSoftware.EjectABed.BedListener.fsproj">
+      <Name>ChickenSoftware.EjectABed.BedListener</Name>
       <Project>{953ce2fe-edac-41b6-8845-16b1e29b900e}</Project>
       <Private>True</Private>
       <RoleType>Worker</RoleType>
-      <RoleName>BedListener</RoleName>
-      <UpdateDiagnosticsConnectionStringOnPublish>True</UpdateDiagnosticsConnectionStringOnPublish>
+      <RoleName>ChickenSoftware.EjectABed.BedListener</RoleName>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="BedListenerContent\" />
-  </ItemGroup>
-  <ItemGroup>
-    <DiagnosticsConfiguration Include="BedListenerContent\diagnostics.wadcfgx" />
   </ItemGroup>
   <!-- Import the target files for this project template -->
   <PropertyGroup>

@@ -9,9 +9,9 @@
     <ProjectGuid>953ce2fe-edac-41b6-8845-16b1e29b900e</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>BedListener</RootNamespace>
-    <AssemblyName>BedListener</AssemblyName>
+    <AssemblyName>ChickenSoftware.EjectABed.BedListener</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
-    <Name>BedListener</Name>
+    <Name>ChickenSoftware.EjectABed.BedListener</Name>
     <RoleType>Worker</RoleType>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
