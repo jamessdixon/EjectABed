@@ -11,16 +11,14 @@ namespace ChickenSoftware.EjectABed.BedControl
 {
     public sealed partial class MainPage : Page
     {
-        private const int LED_PIN = 5;
-        private GpioPin pin;
-        private GpioPinValue pinValue;
-
         private DispatcherTimer lightTimer;
         private Int32 lightTimerCycleCount = 0;
         private DispatcherTimer queueCheckTimer;
         private SolidColorBrush greenBrush = new SolidColorBrush(Windows.UI.Colors.Green);
         private SolidColorBrush redBrush = new SolidColorBrush(Windows.UI.Colors.Red);
         private SolidColorBrush grayBrush = new SolidColorBrush(Windows.UI.Colors.LightGray);
+
+        private IBedCommand bedCommand = null;
 
         public MainPage()
         {
@@ -30,9 +28,10 @@ namespace ChickenSoftware.EjectABed.BedControl
             queueCheckTimer.Interval = TimeSpan.FromSeconds(15);
             queueCheckTimer.Tick += QueueCheckTimer_Tick;
             
-            if(IsGPIOInitializationSuccessful())
+            if(bedCommand.Initialize())
             {
                 GpioStatus.Text = "GPIO initialized correctly.  Waiting for next message...";
+                bedCommand.Sleep();
                 queueCheckTimer.Start();
             }
             else
@@ -42,32 +41,12 @@ namespace ChickenSoftware.EjectABed.BedControl
         }
 
 
-        private Boolean IsGPIOInitializationSuccessful()
-        {
-            var gpio = GpioController.GetDefault();
-
-            if (gpio == null)
-            {
-                pin = null;
-                return false;
-            }
-            else
-            {
-                pin = gpio.OpenPin(LED_PIN);
-                pinValue = GpioPinValue.High;
-                pin.Write(pinValue);
-                pin.SetDriveMode(GpioPinDriveMode.Output);
-                return true;
-            }
-        }
-
         private void LightTimer_Tick(object sender, object e)
         {
             switch (lightTimerCycleCount)
             {
                 case 0:
-                    pinValue = GpioPinValue.Low;
-                    pin.Write(pinValue);
+                    bedCommand.Reset();
                     LED.Fill = redBrush;
                     lightTimerCycleCount += 1;
                     GpioStatus.Text = "Bed Ejected. Resetting...";
@@ -75,8 +54,7 @@ namespace ChickenSoftware.EjectABed.BedControl
                 default:
                     lightTimer.Stop();
                     lightTimerCycleCount = 0;
-                    pinValue = GpioPinValue.High;
-                    pin.Write(pinValue);
+                    bedCommand.Sleep();
                     LED.Fill = grayBrush;
                     GpioStatus.Text = "Waiting for next message...";
                     queueCheckTimer.Start();
@@ -99,14 +77,7 @@ namespace ChickenSoftware.EjectABed.BedControl
             lightTimer = new DispatcherTimer();
             lightTimer.Interval = TimeSpan.FromSeconds(20);
             lightTimer.Tick += LightTimer_Tick;
-
-            if (pin != null)
-            {
-                pinValue = GpioPinValue.Low;
-                pin.Write(pinValue);
-                LED.Fill = greenBrush;
-                lightTimer.Start();
-            }
+            bedCommand.Eject();
         }
 
         internal async Task<Boolean> IsMessageOnQueue()
