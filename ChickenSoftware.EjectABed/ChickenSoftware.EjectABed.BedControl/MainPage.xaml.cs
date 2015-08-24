@@ -27,12 +27,12 @@ namespace ChickenSoftware.EjectABed.BedControl
             InitializeComponent();
 
             queueCheckTimer = new DispatcherTimer();
-            queueCheckTimer.Interval = TimeSpan.FromSeconds(5);
+            queueCheckTimer.Interval = TimeSpan.FromSeconds(15);
             queueCheckTimer.Tick += QueueCheckTimer_Tick;
             
             if(IsGPIOInitializationSuccessful())
             {
-                GpioStatus.Text = "GPIO initialized correctly.";
+                GpioStatus.Text = "GPIO initialized correctly.  Waiting for next message...";
                 queueCheckTimer.Start();
             }
             else
@@ -68,14 +68,9 @@ namespace ChickenSoftware.EjectABed.BedControl
                 case 0:
                     pinValue = GpioPinValue.Low;
                     pin.Write(pinValue);
-                    LED.Fill = greenBrush;
-                    lightTimerCycleCount += 1;
-                    break;
-                case 1:
-                    pinValue = GpioPinValue.Low;
-                    pin.Write(pinValue);
                     LED.Fill = redBrush;
                     lightTimerCycleCount += 1;
+                    GpioStatus.Text = "Bed Ejected. Resetting...";
                     break;
                 default:
                     lightTimer.Stop();
@@ -83,6 +78,8 @@ namespace ChickenSoftware.EjectABed.BedControl
                     pinValue = GpioPinValue.High;
                     pin.Write(pinValue);
                     LED.Fill = grayBrush;
+                    GpioStatus.Text = "Waiting for next message...";
+                    queueCheckTimer.Start();
                     break;
             }
         }
@@ -92,8 +89,8 @@ namespace ChickenSoftware.EjectABed.BedControl
             if (await IsMessageOnQueue())
             {
                 queueCheckTimer.Stop();
+                GpioStatus.Text = "Message for the EjectABed.  Starting to Eject...";
                 RunEjectionSequence();
-                queueCheckTimer.Start();
             }
         }
 
@@ -102,18 +99,19 @@ namespace ChickenSoftware.EjectABed.BedControl
             lightTimer = new DispatcherTimer();
             lightTimer.Interval = TimeSpan.FromSeconds(20);
             lightTimer.Tick += LightTimer_Tick;
-            pinValue = GpioPinValue.High;
-            pin.Write(pinValue);
-            LED.Fill = grayBrush;
+
             if (pin != null)
             {
+                pinValue = GpioPinValue.Low;
+                pin.Write(pinValue);
+                LED.Fill = greenBrush;
                 lightTimer.Start();
             }
         }
 
         internal async Task<Boolean> IsMessageOnQueue()
         {
-            var storageConnectionString = "DefaultEndpointsProtocol=https;AccountName=ejectabed;AccountKey=sxALfPT8vnTH5iAhVMe2ki0AG5+zWUqKEYpzMeYlaCOEMlq1AL2wqNzus1VbBf599RF3nnylhX7tdYlellK49g==";
+            var storageConnectionString = "DefaultEndpointsProtocol=https;AccountName=ejectabed;AccountKey=HZMPnsiL0fzqJunxRswtw5DwQYaa2HRXePkFNg66y0TQanAIkLYGYW5TDoP/CClM1u2UDrp192dlcDoWcxdVbA==";
             var storageAccount = CloudStorageAccount.Parse(storageConnectionString);
             var client = storageAccount.CreateCloudQueueClient();
             var queue = client.GetQueueReference("sloan");
@@ -126,7 +124,6 @@ namespace ChickenSoftware.EjectABed.BedControl
             var message = await queue.GetMessageAsync(); 
             if (message != null)
             {
-                GpioStatus.Text = "Message for the EjectABed.  Starting to Eject...";
                 await queue.DeleteMessageAsync(message);
                 return true;
             }
