@@ -6,19 +6,32 @@ namespace ChickenSoftware.EjectABed.MessageQueuePOC
 {
     class Program
     {
+        static String storageConnectionString = "DefaultEndpointsProtocol=https;AccountName=ejectabed;AccountKey=HZMPnsiL0fzqJunxRswtw5DwQYaa2HRXePkFNg66y0TQanAIkLYGYW5TDoP/CClM1u2UDrp192dlcDoWcxdVbA==";
+
         static void Main(string[] args)
         {
             Console.WriteLine("Start");
-            CreateQueue();
-            WriteToQueue();
-            //ReadFromQueue();
+            Console.WriteLine("Press The 'E' Key To Eject.  Press 'Q' to quit...");
+
+            var keyInfo = ConsoleKey.S;
+            do
+            {
+                keyInfo = Console.ReadKey().Key;
+                if (keyInfo == ConsoleKey.E)
+                {
+                    CreateQueue();
+                    WriteToQueue();
+                    //ReadFromQueue();
+                }
+
+            } while (keyInfo != ConsoleKey.Q);
+
             Console.WriteLine("End");
             Console.ReadKey();
         }
 
         private static void CreateQueue()
         {
-            var storageConnectionString = "DefaultEndpointsProtocol=https;AccountName=ejectabed;AccountKey=sxALfPT8vnTH5iAhVMe2ki0AG5+zWUqKEYpzMeYlaCOEMlq1AL2wqNzus1VbBf599RF3nnylhX7tdYlellK49g==";
             var storageAccount = CloudStorageAccount.Parse(storageConnectionString);
             var client = storageAccount.CreateCloudQueueClient();
             var queue = client.GetQueueReference("sloan");
@@ -28,7 +41,6 @@ namespace ChickenSoftware.EjectABed.MessageQueuePOC
 
         private static void WriteToQueue()
         {
-            var storageConnectionString = "DefaultEndpointsProtocol=https;AccountName=ejectabed;AccountKey=sxALfPT8vnTH5iAhVMe2ki0AG5+zWUqKEYpzMeYlaCOEMlq1AL2wqNzus1VbBf599RF3nnylhX7tdYlellK49g==";
             var storageAccount = CloudStorageAccount.Parse(storageConnectionString);
             var client = storageAccount.CreateCloudQueueClient();
             var queue = client.GetQueueReference("sloan");
@@ -40,7 +52,6 @@ namespace ChickenSoftware.EjectABed.MessageQueuePOC
 
         private static void ReadFromQueue()
         {
-            var storageConnectionString = "DefaultEndpointsProtocol=https;AccountName=ejectabed;AccountKey=sxALfPT8vnTH5iAhVMe2ki0AG5+zWUqKEYpzMeYlaCOEMlq1AL2wqNzus1VbBf599RF3nnylhX7tdYlellK49g==";
             var storageAccount = CloudStorageAccount.Parse(storageConnectionString);
             var client = storageAccount.CreateCloudQueueClient();
             var queue = client.GetQueueReference("sloan");
