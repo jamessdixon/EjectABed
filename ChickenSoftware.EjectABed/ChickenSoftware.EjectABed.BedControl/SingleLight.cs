@@ -26,9 +26,9 @@ namespace ChickenSoftware.EjectABed.BedControl
             else
             {
                 pin = gpio.OpenPin(LED_PIN);
+                pin.SetDriveMode(GpioPinDriveMode.Output);
                 pinValue = GpioPinValue.High;
                 pin.Write(pinValue);
-                pin.SetDriveMode(GpioPinDriveMode.Output);
                 return true;
             }
         }

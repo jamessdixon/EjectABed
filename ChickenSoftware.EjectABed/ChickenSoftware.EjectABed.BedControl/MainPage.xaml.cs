@@ -11,21 +11,23 @@ namespace ChickenSoftware.EjectABed.BedControl
 {
     public sealed partial class MainPage : Page
     {
-        private DispatcherTimer lightTimer;
-        private Int32 lightTimerCycleCount = 0;
+        private DispatcherTimer bedTimer;
+        private Int32 bedTimerCycleCount = 0;
         private DispatcherTimer queueCheckTimer;
+        private Int32 queueCheckInterval = 15;
         private SolidColorBrush greenBrush = new SolidColorBrush(Windows.UI.Colors.Green);
         private SolidColorBrush redBrush = new SolidColorBrush(Windows.UI.Colors.Red);
         private SolidColorBrush grayBrush = new SolidColorBrush(Windows.UI.Colors.LightGray);
 
-        private IBedCommand bedCommand = null;
+        private IBedCommand bedCommand = new SingleLight();
+        private Int32 ejectionLength = 5;
 
         public MainPage()
         {
             InitializeComponent();
 
             queueCheckTimer = new DispatcherTimer();
-            queueCheckTimer.Interval = TimeSpan.FromSeconds(15);
+            queueCheckTimer.Interval = TimeSpan.FromSeconds(queueCheckInterval);
             queueCheckTimer.Tick += QueueCheckTimer_Tick;
             
             if(bedCommand.Initialize())
@@ -43,17 +45,17 @@ namespace ChickenSoftware.EjectABed.BedControl
 
         private void LightTimer_Tick(object sender, object e)
         {
-            switch (lightTimerCycleCount)
+            switch (bedTimerCycleCount)
             {
                 case 0:
                     bedCommand.Reset();
                     LED.Fill = redBrush;
-                    lightTimerCycleCount += 1;
+                    bedTimerCycleCount += 1;
                     GpioStatus.Text = "Bed Ejected. Resetting...";
                     break;
                 default:
-                    lightTimer.Stop();
-                    lightTimerCycleCount = 0;
+                    bedTimer.Stop();
+                    bedTimerCycleCount = 0;
                     bedCommand.Sleep();
                     LED.Fill = grayBrush;
                     GpioStatus.Text = "Waiting for next message...";
@@ -68,16 +70,18 @@ namespace ChickenSoftware.EjectABed.BedControl
             {
                 queueCheckTimer.Stop();
                 GpioStatus.Text = "Message for the EjectABed.  Starting to Eject...";
+                LED.Fill = greenBrush;
                 RunEjectionSequence();
             }
         }
 
         internal void RunEjectionSequence()
         {
-            lightTimer = new DispatcherTimer();
-            lightTimer.Interval = TimeSpan.FromSeconds(20);
-            lightTimer.Tick += LightTimer_Tick;
             bedCommand.Eject();
+            bedTimer = new DispatcherTimer();
+            bedTimer.Interval = TimeSpan.FromSeconds(ejectionLength);
+            bedTimer.Tick += LightTimer_Tick;
+            bedTimer.Start();
         }
 
         internal async Task<Boolean> IsMessageOnQueue()
