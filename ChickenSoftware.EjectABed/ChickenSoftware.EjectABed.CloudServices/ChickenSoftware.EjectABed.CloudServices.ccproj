@@ -5,13 +5,13 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>2.7</ProductVersion>
-    <ProjectGuid>a2ed9a5d-c79f-47df-9968-5c52ab192f76</ProjectGuid>
+    <ProjectGuid>b719a314-d809-41fc-957c-c1b209cdf72b</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ChickenSoftware.EjectABed.AzureServices</RootNamespace>
-    <AssemblyName>ChickenSoftware.EjectABed.AzureServices</AssemblyName>
+    <RootNamespace>ChickenSoftware.EjectABed.CloudServices</RootNamespace>
+    <AssemblyName>ChickenSoftware.EjectABed.CloudServices</AssemblyName>
     <StartDevelopmentStorage>True</StartDevelopmentStorage>
-    <Name>ChickenSoftware.EjectABed.AzureServices</Name>
+    <Name>ChickenSoftware.EjectABed.CloudServices</Name>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -37,34 +37,20 @@
     <ServiceConfiguration Include="ServiceConfiguration.Cloud.cscfg" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="ChickenSoftware.EjectABed.BedControlListenerContent" />
-    <Folder Include="ChickenSoftware.EjectABed.UserControlListenerContent" />
-    <Folder Include="Profiles" />
-  </ItemGroup>
-  <ItemGroup>
-    <DiagnosticsConfiguration Include="ChickenSoftware.EjectABed.BedControlListenerContent\diagnostics.wadcfgx" />
-    <DiagnosticsConfiguration Include="ChickenSoftware.EjectABed.UserControlListenerContent\diagnostics.wadcfgx" />
-  </ItemGroup>
-  <ItemGroup>
-    <PublishProfile Include="Profiles\ejectabedProduction.azurePubxml" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ChickenSoftware.EjectABed.BedControlListener\ChickenSoftware.EjectABed.BedControlListener.fsproj">
-      <Name>ChickenSoftware.EjectABed.BedControlListener</Name>
-      <Project>{953ce2fe-edac-41b6-8845-16b1e29b900e}</Project>
+    <ProjectReference Include="..\ChickenSoftware.EjectABed.TwitterControl\ChickenSoftware.EjectABed.TwitterControl.fsproj">
+      <Name>ChickenSoftware.EjectABed.TwitterControl</Name>
+      <Project>{886b1016-ac7f-4ccb-b021-85d47fb56e44}</Project>
       <Private>True</Private>
       <RoleType>Worker</RoleType>
-      <RoleName>ChickenSoftware.EjectABed.BedControlListener</RoleName>
+      <RoleName>ChickenSoftware.EjectABed.TwitterControl</RoleName>
       <UpdateDiagnosticsConnectionStringOnPublish>True</UpdateDiagnosticsConnectionStringOnPublish>
     </ProjectReference>
-    <ProjectReference Include="..\ChickenSoftware.EjectABed.UserControlListener\ChickenSoftware.EjectABed.UserControlListener.fsproj">
-      <Name>ChickenSoftware.EjectABed.UserControlListener</Name>
-      <Project>{8b0c79d4-bd54-49c3-a459-74cb8456a35c}</Project>
-      <Private>True</Private>
-      <RoleType>Worker</RoleType>
-      <RoleName>ChickenSoftware.EjectABed.UserControlListener</RoleName>
-      <UpdateDiagnosticsConnectionStringOnPublish>True</UpdateDiagnosticsConnectionStringOnPublish>
-    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ChickenSoftware.EjectABed.TwitterControlContent\" />
+  </ItemGroup>
+  <ItemGroup>
+    <DiagnosticsConfiguration Include="ChickenSoftware.EjectABed.TwitterControlContent\diagnostics.wadcfgx" />
   </ItemGroup>
   <!-- Import the target files for this project template -->
   <PropertyGroup>
