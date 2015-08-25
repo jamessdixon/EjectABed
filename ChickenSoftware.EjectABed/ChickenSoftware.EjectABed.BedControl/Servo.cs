@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ChickenSoftware.EjectABed.BedControl
 {
-    //Yellow - Signal
+    // Yellow - Signal
     // Black (-) Ground
     // Red (+) 5 Volts
 
