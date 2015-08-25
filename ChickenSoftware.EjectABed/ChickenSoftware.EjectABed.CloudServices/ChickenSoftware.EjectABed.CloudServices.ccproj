@@ -44,16 +44,6 @@
     <DiagnosticsConfiguration Include="ChickenSoftware.EjectABed.TwitterControlContent\diagnostics.wadcfgx" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ChickenSoftware.EjectABed.TwitterControl\ChickenSoftware.EjectABed.TwitterControl.fsproj">
-      <Name>ChickenSoftware.EjectABed.TwitterControl</Name>
-      <Project>{886b1016-ac7f-4ccb-b021-85d47fb56e44}</Project>
-      <Private>True</Private>
-      <RoleType>Worker</RoleType>
-      <RoleName>ChickenSoftware.EjectABed.TwitterControl</RoleName>
-      <UpdateDiagnosticsConnectionStringOnPublish>True</UpdateDiagnosticsConnectionStringOnPublish>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <PublishProfile Include="Profiles\ejectabedtwitterProduction.azurePubxml" />
   </ItemGroup>
   <!-- Import the target files for this project template -->
