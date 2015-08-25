@@ -28,28 +28,31 @@ type TwitterWorker() =
 
     let storageConnectionString = RoleEnvironment.GetConfigurationSettingValue("storageConnectionString")
 
-    let CreateQueue(queueName) =
+    let createQueue(queueName) =
         let storageAccount = CloudStorageAccount.Parse(storageConnectionString)
         let client = storageAccount.CreateCloudQueueClient()
         let queue = client.GetQueueReference(queueName);
         queue.CreateIfNotExists() |> ignore
 
-    let WriteToQueue(queueName) =
+    let writeToQueue(queueName) =
         let storageAccount = CloudStorageAccount.Parse(storageConnectionString)
         let client = storageAccount.CreateCloudQueueClient()
         let queue = client.GetQueueReference(queueName)
         let message = new CloudQueueMessage("Eject!")
         queue.AddMessage(message) |> ignore
 
-    let WriteTweet(queueName) =
-        CreateQueue(queueName)
-        WriteToQueue(queueName)
+    let writeTweetToQueue(queueName) =
+        createQueue(queueName)
+        writeToQueue(queueName)
 
-    let GetFirstWordFromTweet(tweet:string) =
-        let firstSpace = tweet.IndexOf(" ")
-        match firstSpace with
-        | -1 -> tweet.Trim()
-        | _ -> tweet.Substring(0,firstSpace).Trim()
+    let getKeywordFromTweet(tweet: ITweet) = 
+        let keyword = "sloan"
+        let hasKeyword = tweet.Text.Contains(keyword)
+        let isFavourited = tweet.FavouriteCount > 0
+        match hasKeyword, isFavourited  with
+        | true,false -> Some (keyword,tweet)
+        | _,_ -> None
+        
 
     override this.Run() =
         while(true) do
@@ -57,11 +60,16 @@ type TwitterWorker() =
             let consumerSecret = RoleEnvironment.GetConfigurationSettingValue("consumerSecret")
             let accessToken = RoleEnvironment.GetConfigurationSettingValue("accessToken")
             let accessTokenSecret = RoleEnvironment.GetConfigurationSettingValue("accessTokenSecret")
+
             let creds = Credentials.TwitterCredentials(consumerKey, consumerSecret, accessToken, accessTokenSecret)
             Tweetinvi.Auth.SetCredentials(creds)
             let matchingTweets = Tweetinvi.Search.SearchTweets("@ejectabed")
-            matchingTweets |> Seq.map(fun t -> GetFirstWordFromTweet(t.Text))
-                           |> Seq.iter(fun w -> WriteTweet(w))
+            let matchingTweets' =  matchingTweets |> Seq.map(fun t -> getKeywordFromTweet(t))
+                                                  |> Seq.filter(fun t -> t.IsSome)
+                                                  |> Seq.map (fun t -> t.Value)
+            matchingTweets' |> Seq.iter(fun (k,t) -> writeTweetToQueue(k))        
+            matchingTweets' |> Seq.iter(fun (k,t) -> t.Favourite())        
+
             Thread.Sleep(15000)
 
     override this.OnStart() = 

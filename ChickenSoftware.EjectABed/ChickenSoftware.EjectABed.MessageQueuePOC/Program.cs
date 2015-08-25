@@ -19,9 +19,9 @@ namespace ChickenSoftware.EjectABed.MessageQueuePOC
                 keyInfo = Console.ReadKey().Key;
                 if (keyInfo == ConsoleKey.E)
                 {
-                    CreateQueue();
-                    WriteToQueue();
-                    //ReadFromQueue();
+                    //CreateQueue();
+                    //WriteToQueue();
+                    ReadFromQueue();
                 }
 
             } while (keyInfo != ConsoleKey.Q);
