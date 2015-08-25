@@ -3,11 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "libs", "libs", "{30616F1F-25C0-4825-814D-E16EFE13573D}"
-	ProjectSection(SolutionItems) = preProject
-		libs\FSharp.Core.dll = libs\FSharp.Core.dll
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChickenSoftware.EjectABed.BedControl", "ChickenSoftware.EjectABed.BedControl\ChickenSoftware.EjectABed.BedControl.csproj", "{3662C7F2-04F8-4046-BF8E-EF1AC302DFE2}"
 EndProject
 Project("{CC5FD16D-436D-48AD-A40C-5A424C6E3E79}") = "ChickenSoftware.EjectABed.CloudServices", "ChickenSoftware.EjectABed.CloudServices\ChickenSoftware.EjectABed.CloudServices.ccproj", "{B719A314-D809-41FC-957C-C1B209CDF72B}"
