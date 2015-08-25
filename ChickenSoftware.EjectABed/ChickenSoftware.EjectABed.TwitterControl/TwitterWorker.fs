@@ -26,7 +26,7 @@ open Microsoft.WindowsAzure.Storage.Queue;
 type TwitterWorker() =
     inherit RoleEntryPoint() 
 
-    let storageConnectionString = "DefaultEndpointsProtocol=https;AccountName=ejectabed;AccountKey=HZMPnsiL0fzqJunxRswtw5DwQYaa2HRXePkFNg66y0TQanAIkLYGYW5TDoP/CClM1u2UDrp192dlcDoWcxdVbA==";
+    let storageConnectionString = RoleEnvironment.GetConfigurationSettingValue("storageConnectionString")
 
     let CreateQueue(queueName) =
         let storageAccount = CloudStorageAccount.Parse(storageConnectionString)
@@ -53,10 +53,10 @@ type TwitterWorker() =
 
     override this.Run() =
         while(true) do
-            let consumerKey = "uMBReqftahU5gd9fukUeebWQn"
-            let consumerSecret = "FbbFsNcIAcMT6MnnkDBQoCp4V2XYj8YDpLAB20IE5TcDRWnsDs" 
-            let accessToken = "165481117-Ukrou2BteS9MlJTPGVbrT8DKriw3QvofYB03wlG7"
-            let accessTokenSecret = "FvSX72o9tzqMJZjyUOFYic08UQFBUFCQEyn7UjE8fb6rg"
+            let consumerKey = RoleEnvironment.GetConfigurationSettingValue("consumerKey")
+            let consumerSecret = RoleEnvironment.GetConfigurationSettingValue("consumerSecret")
+            let accessToken = RoleEnvironment.GetConfigurationSettingValue("accessToken")
+            let accessTokenSecret = RoleEnvironment.GetConfigurationSettingValue("accessTokenSecret")
             let creds = Credentials.TwitterCredentials(consumerKey, consumerSecret, accessToken, accessTokenSecret)
             Tweetinvi.Auth.SetCredentials(creds)
             let matchingTweets = Tweetinvi.Search.SearchTweets("@ejectabed")

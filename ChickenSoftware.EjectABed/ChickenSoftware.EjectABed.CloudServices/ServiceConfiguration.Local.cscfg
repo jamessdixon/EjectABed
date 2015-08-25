@@ -3,7 +3,11 @@
   <Role name="ChickenSoftware.EjectABed.TwitterControl">
     <Instances count="1" />
     <ConfigurationSettings>
-      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="UseDevelopmentStorage=true" />
+      <Setting name="storageConnectionString" value="DefaultEndpointsProtocol=https;AccountName=ejectabed;AccountKey=HZMPnsiL0fzqJunxRswtw5DwQYaa2HRXePkFNg66y0TQanAIkLYGYW5TDoP/CClM1u2UDrp192dlcDoWcxdVbA==" />
+      <Setting name="consumerKey" value="uMBReqftahU5gd9fukUeebWQn" />
+      <Setting name="consumerSecret" value="FbbFsNcIAcMT6MnnkDBQoCp4V2XYj8YDpLAB20IE5TcDRWnsDs" />
+      <Setting name="accessToken" value="165481117-Ukrou2BteS9MlJTPGVbrT8DKriw3QvofYB03wlG7" />
+      <Setting name="accessTokenSecret" value="FvSX72o9tzqMJZjyUOFYic08UQFBUFCQEyn7UjE8fb6rg" />
     </ConfigurationSettings>
   </Role>
 </ServiceConfiguration>
